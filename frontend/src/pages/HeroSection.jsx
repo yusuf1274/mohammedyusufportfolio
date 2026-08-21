@@ -4,7 +4,7 @@ const SOCIAL_LINKS = [
   { href: 'https://github.com/mohammedyusuf', icon: '⌥', label: 'GitHub' },
   { href: 'https://linkedin.com/in/mohammedyusuf', icon: '⬡', label: 'LinkedIn' },
   { href: 'https://twitter.com/mohammedyusuf', icon: '✦', label: 'Twitter' },
-  { href: 'mailto:mohammedyusuf@email.com', icon: '✉', label: 'Email' },
+  { href: 'mailto:mohammedyusuf123@email.com', icon: '✉', label: 'Email' },
 ];
 
 const STATS = [
