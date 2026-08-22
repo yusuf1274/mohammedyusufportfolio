@@ -5,40 +5,40 @@ const SKILL_CATEGORIES = [
     icon: '⚛️',
     title: 'Frontend Development',
     skills: [
-      { name: 'React.js / Next.js', percent: 90 },
-      { name: 'HTML5 / CSS3', percent: 95 },
-      { name: 'JavaScript (ES6+)', percent: 88 },
-      { name: 'TypeScript', percent: 78 },
+      { name: 'React.js / Next.js',    percent: 90 },
+      { name: 'HTML5 / CSS3',          percent: 95 },
+      { name: 'JavaScript (ES6+)',     percent: 88 },
+      { name: 'TypeScript',            percent: 78 },
     ],
   },
   {
     icon: '🔧',
     title: 'Backend Development',
     skills: [
-      { name: 'Node.js / Express', percent: 85 },
-      { name: 'Python / Django', percent: 75 },
-      { name: 'REST APIs / GraphQL', percent: 82 },
-      { name: 'MongoDB / PostgreSQL', percent: 78 },
+      { name: 'Node.js / Express',     percent: 85 },
+      { name: 'Python / Django',       percent: 75 },
+      { name: 'REST APIs / GraphQL',   percent: 82 },
+      { name: 'MongoDB / PostgreSQL',  percent: 78 },
     ],
   },
   {
     icon: '🎨',
     title: 'UI / UX Design',
     skills: [
-      { name: 'Figma', percent: 80 },
-      { name: 'Responsive Design', percent: 92 },
-      { name: 'Tailwind CSS', percent: 88 },
-      { name: 'Animation / Motion', percent: 72 },
+      { name: 'Figma',                 percent: 80 },
+      { name: 'Responsive Design',     percent: 92 },
+      { name: 'Tailwind CSS',          percent: 88 },
+      { name: 'Animation / Motion',    percent: 72 },
     ],
   },
   {
     icon: '🚀',
     title: 'DevOps & Tools',
     skills: [
-      { name: 'Git / GitHub', percent: 90 },
-      { name: 'Docker', percent: 70 },
-      { name: 'AWS / Vercel', percent: 75 },
-      { name: 'Linux / CLI', percent: 80 },
+      { name: 'Git / GitHub',          percent: 90 },
+      { name: 'Docker',                percent: 70 },
+      { name: 'AWS / Vercel',          percent: 75 },
+      { name: 'Linux / CLI',           percent: 80 },
     ],
   },
 ];
@@ -49,6 +49,7 @@ const TECH_TAGS = [
   'GraphQL', 'REST API', 'Git', 'Linux', 'Vite', 'Tailwind',
 ];
 
+/* ── Animated skill progress bar ── */
 const SkillBar = ({ name, percent, index }) => {
   const barRef = useRef(null);
 
@@ -79,13 +80,21 @@ const SkillBar = ({ name, percent, index }) => {
         <span className="skill-item__name">{name}</span>
         <span className="skill-item__percent">{percent}%</span>
       </div>
-      <div className="skill-bar" role="progressbar" aria-valuenow={percent} aria-valuemin={0} aria-valuemax={100} aria-label={`${name} proficiency: ${percent}%`}>
+      <div
+        className="skill-bar"
+        role="progressbar"
+        aria-valuenow={percent}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label={`${name} proficiency: ${percent}%`}
+      >
         <div className="skill-bar__fill" ref={barRef} style={{ width: 0 }} />
       </div>
     </div>
   );
 };
 
+/* ── Skill category card ── */
 const SkillCategoryCard = ({ category, cardIndex }) => {
   const cardRef = useRef(null);
 
@@ -97,7 +106,7 @@ const SkillCategoryCard = ({ category, cardIndex }) => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          setTimeout(() => el.classList.add('visible'), cardIndex * 100);
+          setTimeout(() => el.classList.add('visible'), cardIndex * 110);
           observer.disconnect();
         }
       },
@@ -121,19 +130,22 @@ const SkillCategoryCard = ({ category, cardIndex }) => {
   );
 };
 
+/* ── Section ── */
 const SkillsSection = () => {
   return (
     <section id="skills" className="section" aria-labelledby="skills-heading">
       <div className="container">
-        <div className="animate-fade-up">
+        {/* Section header — consistent with other sections */}
+        <div className="section-header animate-fade-up">
           <span className="section-badge">⚡ Technical Arsenal</span>
-          <h2 id="skills-heading" className="section-title">Skills & Technologies</h2>
+          <h2 id="skills-heading" className="section-title">Skills &amp; Technologies</h2>
           <p className="section-subtitle">
             A curated set of tools and technologies I've mastered over years of
             building real-world applications and shipping products.
           </p>
         </div>
 
+        {/* Skill cards grid */}
         <div className="skills-grid" role="list" aria-label="Skill categories">
           {SKILL_CATEGORIES.map((category, i) => (
             <div key={category.title} role="listitem">
@@ -147,7 +159,10 @@ const SkillsSection = () => {
           <div className="tech-tags">
             {TECH_TAGS.map((tag) => (
               <span key={tag} className="tech-tag">
-                <span aria-hidden="true">✦</span> {tag}
+                <svg width="8" height="8" viewBox="0 0 8 8" aria-hidden="true" style={{ flexShrink: 0 }}>
+                  <circle cx="4" cy="4" r="3" fill="currentColor" />
+                </svg>
+                {tag}
               </span>
             ))}
           </div>
