@@ -19,12 +19,41 @@ const TwitterIcon = () => (
   </svg>
 );
 
-const SOCIAL_LINKS = [
-  { href: 'https://github.com/mohammedyusuf',   label: 'GitHub',   Icon: GithubIcon },
-  { href: 'https://linkedin.com/in/mohammedyusuf', label: 'LinkedIn', Icon: LinkedinIcon },
-  { href: 'https://twitter.com/mohammedyusuf',  label: 'Twitter',  Icon: TwitterIcon },
+const EmailIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
+    <rect x="2" y="4" width="20" height="16" rx="3" />
+    <path d="M2 7l10 7 10-7" />
+  </svg>
+);
+
+const ArrowIcon = () => (
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+    <path d="M5 12h14M12 5l7 7-7 7" />
+  </svg>
+);
+
+/* ── Data ── */
+const QUICK_LINKS = [
+  { label: 'Home',      href: '#home' },
+  { label: 'Skills',    href: '#skills' },
+  { label: 'Education', href: '#education' },
+  { label: 'Interests', href: '#interests' },
+  { label: 'Contact',   href: '#contact' },
 ];
 
+const TECH_STACK = [
+  'React.js', 'Node.js', 'Python', 'TypeScript',
+  'MongoDB', 'PostgreSQL', 'Docker', 'AWS',
+];
+
+const SOCIAL_LINKS = [
+  { href: 'https://github.com/mohammedyusuf',        label: 'GitHub',   Icon: GithubIcon },
+  { href: 'https://linkedin.com/in/mohammedyusuf',   label: 'LinkedIn', Icon: LinkedinIcon },
+  { href: 'https://twitter.com/mohammedyusuf',       label: 'Twitter',  Icon: TwitterIcon },
+  { href: 'mailto:mohammedyusuf@email.com',          label: 'Email',    Icon: EmailIcon },
+];
+
+/* ── Component ── */
 const Footer = () => {
   const year = new Date().getFullYear();
 
@@ -35,34 +64,113 @@ const Footer = () => {
 
   return (
     <footer className="footer" role="contentinfo">
-      <div className="container footer__inner">
-        <a
-          className="footer__logo"
-          href="#home"
-          onClick={(e) => handleNavClick(e, '#home')}
-          aria-label="Mohammed Yusuf — Back to top"
-        >
-          Mohammed Yusuf
-        </a>
+      {/* Top glow accent line */}
+      <div className="footer__glow-line" aria-hidden="true" />
 
-        <p className="footer__copy">
-          © {year} Mohammed Yusuf. Crafted with <span aria-hidden="true">♥</span> &amp; React
-        </p>
+      <div className="footer__body">
+        <div className="container">
+          <div className="footer__grid">
 
-        <div className="footer__social" aria-label="Social media links">
-          {SOCIAL_LINKS.map(({ href, label, Icon }) => (
-            <a
-              key={label}
-              href={href}
-              className="social-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              title={label}
-            >
-              <Icon />
-            </a>
-          ))}
+            {/* ── Col 1: Brand & About ── */}
+            <div className="footer__col footer__col--brand">
+              <a
+                className="footer__logo"
+                href="#home"
+                onClick={(e) => handleNavClick(e, '#home')}
+                aria-label="Mohammed Yusuf — Back to top"
+              >
+                Mohammed<span className="footer__logo-accent"> Yusuf</span>
+              </a>
+              <p className="footer__about">
+                Full Stack Developer & UI Craftsman building exceptional digital
+                experiences at the intersection of elegant design and robust engineering.
+              </p>
+              <div className="footer__social" aria-label="Social media links">
+                {SOCIAL_LINKS.map(({ href, label, Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    className="social-link"
+                    target={href.startsWith('mailto') ? undefined : '_blank'}
+                    rel={href.startsWith('mailto') ? undefined : 'noopener noreferrer'}
+                    aria-label={label}
+                    title={label}
+                  >
+                    <Icon />
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            {/* ── Col 2: Quick Links ── */}
+            <div className="footer__col">
+              <h3 className="footer__col-title">Quick Links</h3>
+              <ul className="footer__link-list" role="list">
+                {QUICK_LINKS.map(({ label, href }) => (
+                  <li key={href}>
+                    <a
+                      href={href}
+                      className="footer__nav-link"
+                      onClick={(e) => handleNavClick(e, href)}
+                    >
+                      <ArrowIcon />
+                      {label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* ── Col 3: Tech Stack ── */}
+            <div className="footer__col">
+              <h3 className="footer__col-title">Tech Stack</h3>
+              <div className="footer__tech-chips">
+                {TECH_STACK.map((tech) => (
+                  <span key={tech} className="footer__chip">{tech}</span>
+                ))}
+              </div>
+            </div>
+
+            {/* ── Col 4: Get In Touch ── */}
+            <div className="footer__col footer__col--contact">
+              <h3 className="footer__col-title">Get In Touch</h3>
+              <p className="footer__contact-text">
+                Open to exciting opportunities, collaborations, and freelance projects.
+              </p>
+              <a
+                href="mailto:mohammedyusuf@email.com"
+                className="footer__email-link"
+                aria-label="Send email to Mohammed Yusuf"
+              >
+                <EmailIcon />
+                mohammedyusuf@email.com
+              </a>
+              <a
+                href="#contact"
+                className="footer__cta-btn"
+                onClick={(e) => handleNavClick(e, '#contact')}
+                aria-label="Go to contact section"
+              >
+                Let's Connect
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="footer__bottom">
+        <div className="container footer__bottom-inner">
+          <p className="footer__copy">
+            © {year} Mohammed Yusuf. Crafted with <span aria-hidden="true">♥</span> &amp; React
+          </p>
+          <p className="footer__legal">
+            All rights reserved · Built with passion
+          </p>
         </div>
       </div>
     </footer>
